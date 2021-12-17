@@ -19,6 +19,7 @@ services:
       - ./jmx-exporter:/usr/share/jmx_exporter/
     ports:
       - 9092:9092
+      - 1234:1234
     environment:
       KAFKA_BROKER_ID: ${BROKER_ID:-1}
       KAFKA_ZOOKEEPER_CONNECT: ${ZOOKEEPER_HOST_IP:-zookeeper}:2181
