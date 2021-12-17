@@ -10,6 +10,7 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    restart: unless-stopped
 
   kafka:
     image: confluentinc/cp-kafka:7.0.1
@@ -28,6 +29,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: ${INTER_BROKER_LISTENER:-PLAINTEXT_INTERN}
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_OPTS: -javaagent:/usr/share/jmx_exporter/jmx_prometheus_javaagent-0.16.1.jar=1234:/usr/share/jmx_exporter/jmx_config_kafka.yml
+    restart: unless-stopped
 
   schema-registry:
     image: confluentinc/cp-schema-registry:7.0.1
@@ -38,6 +40,7 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-kafka:29092}
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:v2.31.1
@@ -46,6 +49,7 @@ services:
       - ./prometheus/:/etc/prometheus/
     ports:
       - 9090:9090
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana:8.3.0
@@ -53,6 +57,7 @@ services:
       - data-grafana:/var/lib/grafana
     ports:
       - 3000:3000
+    restart: unless-stopped
 
 volumes:
   data-zookeeper: {}
