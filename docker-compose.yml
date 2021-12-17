@@ -42,6 +42,16 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: ${BOOTSTRAP_SERVERS:-kafka:29092}
     restart: unless-stopped
 
+  kafka-exporter:
+    image: danielqsj/kafka-exporter:v1.4.2
+    container_name: kafka-exporter
+    entrypoint: |
+      /bin/kafka_exporter
+      --kafka.server=${BOOTSTRAP_SERVERS}
+    ports:
+      - 9308:9308
+    restart: unless-stopped
+
   prometheus:
     image: prom/prometheus:v2.31.1
     container_name: prometheus
