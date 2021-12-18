@@ -25,3 +25,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 wget -P ./jmx-exporter https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.16.1/jmx_prometheus_javaagent-0.16.1.jar
 chmod +x ./jmx-exporter/*.jar
+
+
+#sudo apt install default-jdk
